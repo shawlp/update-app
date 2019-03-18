@@ -3,15 +3,24 @@
 
 let fs = require('fs');
 let path = require('path');
+let ReadStream = require('./ReadStreamSource');
 
-let rs = fs.createReadStream(path.join(__dirname, '1.txt'), {
+// let rs = fs.createReadStream(path.join(__dirname, '1.txt'), {
+//     flags: 'r', // 读取操作
+//     encoding: 'utf8', // 默认为null，null代表的返回buffer
+//     autoClose: true, // 读取完自动关闭
+//     highWaterMark: 3, // 默认是64k, 64*1024b
+//     start: 3, // 从第3个字节开始读取
+//     end: 8 // 包括索引8
+// });
+let rs = new ReadStream(path.join(__dirname, '1.txt'), {
     flags: 'r', // 读取操作
     encoding: 'utf8', // 默认为null，null代表的返回buffer
     autoClose: true, // 读取完自动关闭
     highWaterMark: 3, // 默认是64k, 64*1024b
     start: 3, // 从第3个字节开始读取
     end: 8 // 包括索引8
-});
+}); 
 
 // 也可以手动设置编码或者在options声明
 // rs.setEncoding('utf8');

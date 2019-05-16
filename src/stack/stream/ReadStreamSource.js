@@ -51,15 +51,17 @@ class ReadStream extends EventEmitter {
         });
     }
     pipe(ws) {
+        // 监听了data事件，切换为流动模式 
         this.on('data', (chunk) =>{
             let flag = ws.write(chunk);
             if (!flag) {
                 this.pause();
             }
         });
+        // 通过管道，把读取的数据全部写进目标文件
         ws.on('drain', ()=>{
             this.resume();
-        }); 
+        });  
     }
     pause() {
         this.flowing = false;

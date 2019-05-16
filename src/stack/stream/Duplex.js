@@ -7,13 +7,17 @@ let d = Duplex({
         this.push(null);
     },
     write(chunk, encoding, callback){
-        console.log(chunk.toString());
+        console.log('write', chunk.toString());
         callback();
     }
 });
 
 d.on('data', (data) => {
-    console.log(data.toString());
+    console.log('data', data.toString()); // 'hello'
 });
 
-d.write('hello', 'utf8'); 
+// d.read(); // 触发data事件
+
+d.write('hello shaw', 'utf8', () => {
+    console.log('写入完毕！')
+}) 
